@@ -2,7 +2,7 @@ import ModalShell from '../../components/ModalShell';
 import { IconPrint } from '../../components/icons';
 import { useUi } from '../../state/ui';
 import { POSSale } from '../../types';
-import { fmt, fmtDateTime } from '../../utils';
+import { fmt, fmtDateTime, printWithPageSize } from '../../utils';
 
 export default function ReceiptPreview({ sale }: { sale: POSSale }) {
   const { closeModal } = useUi();
@@ -12,7 +12,7 @@ export default function ReceiptPreview({ sale }: { sale: POSSale }) {
       onClose={closeModal}
       noPrintHeader
       headerExtra={
-        <button className="btn sm" onClick={() => window.print()}>
+        <button className="btn sm" onClick={() => printWithPageSize('size: 80mm auto; margin: 0;')}>
           <IconPrint /> Print
         </button>
       }

@@ -5,6 +5,7 @@ import { useUi } from '../../state/ui';
 import { PaymentMode } from '../../types';
 import { fmt } from '../../utils';
 import ReceiptPreview from './ReceiptPreview';
+import POSInvoicePreview from './POSInvoicePreview';
 
 function UpiQr() {
   const cells = useMemo(() => Array.from({ length: 36 }, () => Math.random() > 0.42), []);
@@ -22,7 +23,7 @@ function UpiQr() {
 }
 
 export default function POSView() {
-  const { products, cart, sales, lastSaleId } = useAppState();
+  const { products, cart, sales, lastSaleId, settings } = useAppState();
   const dispatch = useAppDispatch();
   const { openModal, showToast } = useUi();
 
@@ -67,9 +68,15 @@ export default function POSView() {
     if (lastSaleId && handled.current !== lastSaleId) {
       handled.current = lastSaleId;
       const sale = sales.find((s) => s.id === lastSaleId);
-      if (sale) openModal(<ReceiptPreview sale={sale} />);
+      if (sale) {
+        if (settings.b2cPrintFormat === 'A4') {
+          openModal(<POSInvoicePreview sale={sale} />, { wide: true });
+        } else {
+          openModal(<ReceiptPreview sale={sale} />);
+        }
+      }
     }
-  }, [lastSaleId, sales, openModal]);
+  }, [lastSaleId, sales, openModal, settings.b2cPrintFormat]);
 
   const completeSale = () => {
     if (!lines.length) return;
@@ -219,7 +226,7 @@ export default function POSView() {
             </div>
           ) : null}
           <button className="btn primary" style={{ width: '100%', justifyContent: 'center', marginTop: 14 }} disabled={!lines.length} onClick={completeSale}>
-            Complete Sale &amp; Print Slip
+            Complete Sale &amp; Print {settings.b2cPrintFormat === 'A4' ? 'A4' : 'Slip'}
           </button>
         </div>
       </div>

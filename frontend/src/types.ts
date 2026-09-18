@@ -130,4 +130,11 @@ export interface CartLine {
   discPct: number;
 }
 
-export type ViewName = 'dashboard' | 'inventory' | 'b2b' | 'pos' | 'suppliers' | 'reports';
+export type ViewName = 'dashboard' | 'inventory' | 'b2b' | 'pos' | 'suppliers' | 'reports' | 'settings';
+
+export type PrintFormat = 'A4' | 'Thermal';
+
+export interface Settings {
+  b2bPrintFormat: PrintFormat;
+  b2cPrintFormat: PrintFormat;
+}

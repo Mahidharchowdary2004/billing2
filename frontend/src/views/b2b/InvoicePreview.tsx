@@ -3,7 +3,7 @@ import { IconPrint } from '../../components/icons';
 import { useUi } from '../../state/ui';
 import { B2BInvoice } from '../../types';
 import { HOME_STATE } from '../../utils';
-import { fmt, fmtDate } from '../../utils';
+import { fmt, fmtDate, printWithPageSize } from '../../utils';
 
 export default function InvoicePreview({ invoice }: { invoice: B2BInvoice }) {
   const { closeModal } = useUi();
@@ -16,7 +16,7 @@ export default function InvoicePreview({ invoice }: { invoice: B2BInvoice }) {
       onClose={closeModal}
       noPrintHeader
       headerExtra={
-        <button className="btn sm" onClick={() => window.print()}>
+        <button className="btn sm" onClick={() => printWithPageSize('size: A4 portrait; margin: 10mm;')}>
           <IconPrint /> Print A4
         </button>
       }

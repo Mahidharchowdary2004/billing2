@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppState } from '../state/store';
 import { useAuth } from '../state/auth';
 import { ViewName } from '../types';
-import { IconBox, IconCart, IconChart, IconDash, IconInvoice, IconTruck } from './icons';
+import { IconBox, IconCart, IconChart, IconDash, IconInvoice, IconSettings, IconTruck } from './icons';
 
 interface NavItemDef {
   view: ViewName;
@@ -51,6 +51,8 @@ export default function Sidebar({ open, onNavigate }: { open: boolean; onNavigat
         <NavButton view="suppliers" label="Suppliers & Purchases" icon={<IconTruck />} />
         <div className="nav-group-label">Compliance</div>
         <NavButton view="reports" label="GST & Reports" icon={<IconChart />} />
+        <div className="nav-group-label">System</div>
+        <NavButton view="settings" label="Settings" icon={<IconSettings />} />
       </nav>
       {user ? (
         <div className="user-chip">

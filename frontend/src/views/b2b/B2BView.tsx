@@ -5,11 +5,12 @@ import History from './History';
 import NewInvoice from './NewInvoice';
 import Parties from './Parties';
 import InvoicePreview from './InvoicePreview';
+import B2BReceiptPreview from './B2BReceiptPreview';
 
 type Tab = 'new' | 'history' | 'parties';
 
 export default function B2BView() {
-  const { invoices, lastInvoiceId } = useAppState();
+  const { invoices, lastInvoiceId, settings } = useAppState();
   const { openModal } = useUi();
   const [tab, setTab] = useState<Tab>('new');
 
@@ -18,9 +19,15 @@ export default function B2BView() {
     if (lastInvoiceId && handled.current !== lastInvoiceId) {
       handled.current = lastInvoiceId;
       const inv = invoices.find((i) => i.id === lastInvoiceId);
-      if (inv) openModal(<InvoicePreview invoice={inv} />, { wide: true });
+      if (inv) {
+        if (settings.b2bPrintFormat === 'A4') {
+          openModal(<InvoicePreview invoice={inv} />, { wide: true });
+        } else {
+          openModal(<B2BReceiptPreview invoice={inv} />);
+        }
+      }
     }
-  }, [lastInvoiceId, invoices, openModal]);
+  }, [lastInvoiceId, invoices, openModal, settings.b2bPrintFormat]);
 
   return (
     <>

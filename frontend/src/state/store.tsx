@@ -10,6 +10,7 @@ import {
   POSSale,
   Product,
   Purchase,
+  Settings,
   Supplier,
   ViewName,
 } from '../types';
@@ -26,6 +27,7 @@ export interface AppState {
   b2bDraft: B2BDraft;
   view: ViewName;
   seq: { id: number; invoice: number; bill: number; po: number };
+  settings: Settings;
   lastInvoiceId: number | null;
   lastSaleId: number | null;
 }
@@ -35,6 +37,15 @@ function buildInitialState(): AppState {
   const parties = B2B_PARTIES_SEED;
   const suppliers = SUPPLIERS_SEED;
   const history = buildSeedHistory(products, parties, suppliers);
+  
+  let settings: Settings = { b2bPrintFormat: 'A4', b2cPrintFormat: 'Thermal' };
+  try {
+    const saved = localStorage.getItem('vyapaar_settings');
+    if (saved) settings = { ...settings, ...JSON.parse(saved) };
+  } catch (e) {
+    // ignore
+  }
+
   return {
     products,
     parties,
@@ -46,6 +57,7 @@ function buildInitialState(): AppState {
     b2bDraft: { party: null, items: [] },
     view: 'dashboard',
     seq: { id: getSeedIdCounter(), invoice: history.nextInvoiceSeq, bill: history.nextBillSeq, po: history.nextPoSeq },
+    settings,
     lastInvoiceId: null,
     lastSaleId: null,
   };
@@ -68,6 +80,7 @@ type Action =
   | { type: 'REMOVE_FROM_CART'; index: number }
   | { type: 'COMPLETE_SALE'; mode: PaymentMode; customer: string }
   | { type: 'SUBMIT_PO'; supplierId: number; items: { productId: number; qty: number }[] }
+  | { type: 'UPDATE_SETTINGS'; settings: Partial<Settings> }
   | { type: 'CLEAR_LAST_MARKERS' };
 
 function reducer(state: AppState, action: Action): AppState {
@@ -279,6 +292,16 @@ function reducer(state: AppState, action: Action): AppState {
         purchases: [purchase, ...state.purchases],
         seq: { ...state.seq, id, po: state.seq.po + 1 },
       };
+    }
+
+    case 'UPDATE_SETTINGS': {
+      const newSettings = { ...state.settings, ...action.settings };
+      try {
+        localStorage.setItem('vyapaar_settings', JSON.stringify(newSettings));
+      } catch (e) {
+        // ignore
+      }
+      return { ...state, settings: newSettings };
     }
 
     case 'CLEAR_LAST_MARKERS':

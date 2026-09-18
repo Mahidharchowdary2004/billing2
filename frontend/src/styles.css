@@ -230,7 +230,16 @@ label { font-size: 12px; font-weight: 600; color: var(--ink-soft); display: bloc
   body * { visibility: hidden; }
   .overlay, .overlay * { visibility: visible; }
   .overlay { position: absolute; inset: 0; padding: 0; background: #fff; align-items: flex-start; }
-  .modal { box-shadow: none; border: none; max-width: 100%; width: 100%; border-radius: 0; margin: 0; padding: 14px 18px; }
+  .modal { box-shadow: none; border: none; max-width: 100%; width: 100%; border-radius: 0; margin: 0; padding: 0; }
   .no-print { display: none !important; }
   body { background: #fff; }
+  
+  .invoice-preview, .receipt-preview {
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    margin: 0;
+    max-width: 100%;
+    width: 100%;
+  }
 }

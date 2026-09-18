@@ -2,9 +2,10 @@ import { useAppState } from '../../state/store';
 import { useUi } from '../../state/ui';
 import { fmt, fmtDate } from '../../utils';
 import InvoicePreview from './InvoicePreview';
+import B2BReceiptPreview from './B2BReceiptPreview';
 
 export default function History() {
-  const { invoices } = useAppState();
+  const { invoices, settings } = useAppState();
   const { openModal } = useUi();
 
   return (
@@ -40,7 +41,16 @@ export default function History() {
                 </td>
                 <td className="num mono">{fmt(inv.total)}</td>
                 <td>
-                  <button className="btn ghost sm" onClick={() => openModal(<InvoicePreview invoice={inv} />, { wide: true })}>
+                  <button
+                    className="btn ghost sm"
+                    onClick={() => {
+                      if (settings.b2bPrintFormat === 'A4') {
+                        openModal(<InvoicePreview invoice={inv} />, { wide: true });
+                      } else {
+                        openModal(<B2BReceiptPreview invoice={inv} />);
+                      }
+                    }}
+                  >
                     View / Print
                   </button>
                 </td>

@@ -49,3 +49,15 @@ export function gstSplit(item: GstSplitInput, partyState: string | undefined): G
   const cessAmt = taxable * (item.cess / 100);
   return { taxable, cgst, sgst, igst, cess: cessAmt, total: taxable + cgst + sgst + igst + cessAmt };
 }
+
+/** Temporarily applies a specific @page size and margin before printing to help browser/printer detection. */
+export function printWithPageSize(sizeStr: string) {
+  const style = document.createElement('style');
+  style.innerHTML = `@media print { @page { ${sizeStr} } }`;
+  document.head.appendChild(style);
+  window.print();
+  // Remove the style right after the print dialog resolves
+  setTimeout(() => {
+    document.head.removeChild(style);
+  }, 1000);
+}

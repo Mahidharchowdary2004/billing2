@@ -11,6 +11,7 @@ import B2BView from './views/b2b/B2BView';
 import POSView from './views/pos/POSView';
 import SuppliersView from './views/suppliers/SuppliersView';
 import ReportsView from './views/reports/ReportsView';
+import SettingsView from './views/settings/SettingsView';
 
 export default function App() {
   const { view } = useAppState();
@@ -31,6 +32,7 @@ export default function App() {
           {view === 'pos' && <POSView />}
           {view === 'suppliers' && <SuppliersView />}
           {view === 'reports' && <ReportsView />}
+          {view === 'settings' && <SettingsView />}
         </div>
       </main>
       <ModalRoot />
