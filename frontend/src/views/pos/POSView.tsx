@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { IconScan, IconTrash } from '../../components/icons';
+import { IconTrash } from '../../components/icons';
 import { useAppDispatch, useAppState } from '../../state/store';
 import { useUi } from '../../state/ui';
 import { PaymentMode } from '../../types';
@@ -36,7 +36,7 @@ export default function POSView() {
     ? products.filter(
         (p) => p.name.toLowerCase().includes(search.toLowerCase()) || p.barcode.includes(search) || p.sku.toLowerCase().includes(search.toLowerCase())
       )
-    : [];
+    : products;
 
   const lines = cart.map((c) => {
     const p = products.find((pp) => pp.id === c.productId)!;
@@ -84,9 +84,7 @@ export default function POSView() {
       <div>
         <div className="panel">
           <div className="panel-head">
-            <h2>
-              <IconScan /> Scan or Search Item
-            </h2>
+            <h2>Scan or Search Item</h2>
             <span className="hint">Continuous barcode input — no mouse needed</span>
           </div>
           <input
@@ -99,36 +97,34 @@ export default function POSView() {
               if (e.key === 'Enter') onEnter();
             }}
           />
-          {search ? (
-            <div style={{ marginTop: 10, maxHeight: 280, overflowY: 'auto' }}>
-              {results.length ? (
-                results.map((p) => (
-                  <div
-                    key={p.id}
-                    style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '9px 4px', borderBottom: '1px solid var(--line)', cursor: 'pointer' }}
-                    onClick={() => addToCart(p.id)}
-                  >
-                    <div>
-                      <div style={{ fontWeight: 600, fontSize: 13 }}>{p.name}</div>
-                      <div style={{ fontSize: 11, color: 'var(--ink-soft)' }}>
-                        {p.sku} · {p.barcode} · Stock {p.stock}
-                      </div>
-                    </div>
-                    <div style={{ textAlign: 'right' }}>
-                      <div className="mono" style={{ fontWeight: 600 }}>
-                        {fmt(p.retail)}
-                      </div>
-                      <button className="btn primary sm" style={{ marginTop: 3 }}>
-                        Add
-                      </button>
+          <div style={{ marginTop: 10, maxHeight: 280, overflowY: 'auto' }}>
+            {results.length ? (
+              results.map((p) => (
+                <div
+                  key={p.id}
+                  style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '9px 4px', borderBottom: '1px solid var(--line)', cursor: 'pointer' }}
+                  onClick={() => addToCart(p.id)}
+                >
+                  <div>
+                    <div style={{ fontWeight: 600, fontSize: 13 }}>{p.name}</div>
+                    <div style={{ fontSize: 11, color: 'var(--ink-soft)' }}>
+                      {p.sku} · {p.barcode} · Stock {p.stock}
                     </div>
                   </div>
-                ))
-              ) : (
-                <div className="empty">No matching product</div>
-              )}
-            </div>
-          ) : null}
+                  <div style={{ textAlign: 'right' }}>
+                    <div className="mono" style={{ fontWeight: 600 }}>
+                      {fmt(p.retail)}
+                    </div>
+                    <button className="btn primary sm" style={{ marginTop: 3 }}>
+                      Add
+                    </button>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div className="empty">No matching product</div>
+            )}
+          </div>
         </div>
 
         <div className="panel">

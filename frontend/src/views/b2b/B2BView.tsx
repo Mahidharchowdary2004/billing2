@@ -1,14 +1,26 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useAppState } from '../../state/store';
+import { useUi } from '../../state/ui';
 import History from './History';
 import NewInvoice from './NewInvoice';
 import Parties from './Parties';
+import InvoicePreview from './InvoicePreview';
 
 type Tab = 'new' | 'history' | 'parties';
 
 export default function B2BView() {
-  const { invoices } = useAppState();
+  const { invoices, lastInvoiceId } = useAppState();
+  const { openModal } = useUi();
   const [tab, setTab] = useState<Tab>('new');
+
+  const handled = useRef<number | null>(null);
+  useEffect(() => {
+    if (lastInvoiceId && handled.current !== lastInvoiceId) {
+      handled.current = lastInvoiceId;
+      const inv = invoices.find((i) => i.id === lastInvoiceId);
+      if (inv) openModal(<InvoicePreview invoice={inv} />, { wide: true });
+    }
+  }, [lastInvoiceId, invoices, openModal]);
 
   return (
     <>

@@ -120,6 +120,7 @@ tbody tr:hover { background: rgba(14, 124, 107, 0.05); }
 .btn.danger { color: var(--red); }
 .btn:disabled { opacity: 0.4; cursor: not-allowed; }
 .btn.sm { padding: 5px 10px; font-size: 12px; }
+.btn svg { width: 16px; height: 16px; flex: 0 0 16px; }
 
 input, select, textarea {
   font-family: inherit; font-size: 13px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 7px;
@@ -139,6 +140,7 @@ label { font-size: 12px; font-weight: 600; color: var(--ink-soft); display: bloc
 .modal-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
 .modal-head h3 { margin: 0; font-size: 16.5px; }
 .modal-close { background: none; border: none; cursor: pointer; color: var(--ink-soft); font-size: 18px; line-height: 1; padding: 4px; }
+.modal-close svg { width: 20px; height: 20px; }
 .modal-foot { display: flex; justify-content: flex-end; gap: 10px; margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--line); }
 
 .tabs { display: flex; gap: 6px; border-bottom: 1px solid var(--line); margin-bottom: 18px; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }

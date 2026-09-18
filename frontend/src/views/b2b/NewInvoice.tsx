@@ -1,14 +1,13 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { IconPlus, IconTrash } from '../../components/icons';
 import { useAppDispatch, useAppState } from '../../state/store';
 import { useUi } from '../../state/ui';
 import { PaymentTerm } from '../../types';
 import { fmt, gstSplit, HOME_STATE } from '../../utils';
 import PartyForm from './PartyForm';
-import InvoicePreview from './InvoicePreview';
 
 export default function NewInvoice({ onGenerated }: { onGenerated: () => void }) {
-  const { b2bDraft, products, parties, invoices, lastInvoiceId } = useAppState();
+  const { b2bDraft, products, parties } = useAppState();
   const dispatch = useAppDispatch();
   const { openModal } = useUi();
 
@@ -34,16 +33,6 @@ export default function NewInvoice({ onGenerated }: { onGenerated: () => void })
   const igst = lines.reduce((a, l) => a + l.igst, 0);
   const cess = lines.reduce((a, l) => a + l.cess, 0);
   const grand = subtotal - discTotal + cgst + sgst + igst + cess;
-
-  // Auto-open the printable preview right after an invoice is generated.
-  const handled = useRef<number | null>(null);
-  useEffect(() => {
-    if (lastInvoiceId && handled.current !== lastInvoiceId) {
-      handled.current = lastInvoiceId;
-      const inv = invoices.find((i) => i.id === lastInvoiceId);
-      if (inv) openModal(<InvoicePreview invoice={inv} />, { wide: true });
-    }
-  }, [lastInvoiceId, invoices, openModal]);
 
   const addLine = () => {
     const pid = Number(addProductId);
@@ -267,7 +256,7 @@ export default function NewInvoice({ onGenerated }: { onGenerated: () => void })
             </div>
           </div>
           <button className="btn primary" style={{ width: '100%', justifyContent: 'center', marginTop: 16 }} disabled={!party || !lines.length} onClick={generate}>
-            Generate A4 Tax Invoice
+            Generate Tax Invoice
           </button>
           <button className="btn" style={{ width: '100%', justifyContent: 'center', marginTop: 8 }} onClick={() => dispatch({ type: 'RESET_B2B_DRAFT' })}>
             Clear draft
