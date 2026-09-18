@@ -8,6 +8,7 @@ const TITLES: Record<ViewName, string> = {
   pos: 'B2C Retail — Quick Checkout',
   suppliers: 'Suppliers & Procurement',
   reports: 'GST & Business Reports',
+  settings: 'System Settings',
 };
 
 const SUBTITLES: Record<ViewName, string> = {
@@ -17,6 +18,7 @@ const SUBTITLES: Record<ViewName, string> = {
   pos: 'Barcode-driven checkout with thermal 2"/3" receipt output',
   suppliers: 'Purchase orders, landed cost and supplier ledgers',
   reports: 'GSTR-1, GSTR-3B, day-book and item profitability',
+  settings: 'Configure application preferences and defaults',
 };
 
 export default function Topbar({ view, onMenuClick }: { view: ViewName; onMenuClick: () => void }) {
