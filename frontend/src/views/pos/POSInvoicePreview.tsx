@@ -22,11 +22,11 @@ export default function POSInvoicePreview({ sale }: { sale: POSSale }) {
       <div className="invoice-preview">
         <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '2px solid #222', paddingBottom: 12, marginBottom: 12 }}>
           <div>
-            <div style={{ fontFamily: "'Space Grotesk',sans-serif", fontWeight: 700, fontSize: 18 }}>Vyapaar Retail Counter</div>
+            <div style={{ fontFamily: "'Space Grotesk',sans-serif", fontWeight: 700, fontSize: 18 }}>Ganesh Bhandar Retail Counter</div>
             <div style={{ fontSize: '11.5px', color: '#555' }}>
-              12-4-45, Begum Bazaar, Hyderabad, Telangana – 500012
+              Udala, Odisha
               <br />
-              GSTIN: 36AAACV0000F1Z1 · Ph: 040-23456789
+              GSTIN: 21ADOPM6908J1ZB · Ph: 7992820351, 067922291077
             </div>
           </div>
           <div style={{ textAlign: 'right' }}>

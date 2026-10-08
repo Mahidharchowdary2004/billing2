@@ -36,7 +36,7 @@ export default function Sidebar({ open, onNavigate }: { open: boolean; onNavigat
     <aside className={`sidebar ${open ? 'open' : ''}`}>
       <div className="brand">
         <div className="mark">
-          Vyapaar<span>•</span>
+          Ganesh Bhandar<span>•</span>
         </div>
         <div className="sub">Wholesale + Retail Billing Suite</div>
       </div>

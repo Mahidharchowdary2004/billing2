@@ -25,7 +25,7 @@ export default function Login() {
       <div className="login-card card">
         <div className="brand" style={{ padding: 0, marginBottom: 20, border: 'none' }}>
           <div className="mark" style={{ color: 'var(--ink)' }}>
-            Vyapaar<span>•</span>
+            Ganesh Bhandar<span>•</span>
           </div>
           <div className="sub" style={{ color: 'var(--ink-soft)' }}>Wholesale + Retail Billing Suite</div>
         </div>

@@ -18,9 +18,9 @@ export default function ReceiptPreview({ sale }: { sale: POSSale }) {
       }
     >
       <div className="receipt-preview">
-        <div style={{ textAlign: 'center', fontWeight: 700 }}>VYAPAAR RETAIL COUNTER</div>
-        <div style={{ textAlign: 'center' }}>Begum Bazaar, Hyderabad</div>
-        <div style={{ textAlign: 'center' }}>GSTIN: 36AAACV0000F1Z1</div>
+        <div style={{ textAlign: 'center', fontWeight: 700 }}>GANESH BHANDAR</div>
+        <div style={{ textAlign: 'center' }}>Udala, Odisha</div>
+        <div style={{ textAlign: 'center' }}>GSTIN: 21ADOPM6908J1ZB</div>
         <hr />
         <div className="rline">
           <span>Bill No</span>

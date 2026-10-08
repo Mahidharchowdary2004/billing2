@@ -18,7 +18,7 @@ export default function B2BReceiptPreview({ invoice }: { invoice: B2BInvoice }) 
       }
     >
       <div className="receipt-preview">
-        <div style={{ textAlign: 'center', fontWeight: 700 }}>VYAPAAR WHOLESALE</div>
+        <div style={{ textAlign: 'center', fontWeight: 700 }}>GANESH BHANDAR</div>
         <div style={{ textAlign: 'center' }}>Begum Bazaar, Hyderabad</div>
         <div style={{ textAlign: 'center' }}>GSTIN: 36AAACV0000F1Z1</div>
         <hr />

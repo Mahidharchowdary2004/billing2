@@ -61,3 +61,55 @@ export function printWithPageSize(sizeStr: string) {
     document.head.removeChild(style);
   }, 1000);
 }
+
+export function numberToWords(num: number): string {
+  if (num === 0) return 'Zero';
+
+  const a = ['', 'One ', 'Two ', 'Three ', 'Four ', 'Five ', 'Six ', 'Seven ', 'Eight ', 'Nine ', 'Ten ', 'Eleven ', 'Twelve ', 'Thirteen ', 'Fourteen ', 'Fifteen ', 'Sixteen ', 'Seventeen ', 'Eighteen ', 'Nineteen '];
+  const b = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+
+  const inWords = (n: number) => {
+    let str = '';
+    if (n > 99) {
+      str += a[Math.floor(n / 100)] + 'Hundred ';
+      n %= 100;
+    }
+    if (n > 19) {
+      str += b[Math.floor(n / 10)] + ' ';
+      n %= 10;
+    }
+    if (n > 0) {
+      str += a[n];
+    }
+    return str;
+  };
+
+  let word = '';
+  if (num > 9999999) {
+    word += inWords(Math.floor(num / 10000000)) + 'Crore ';
+    num %= 10000000;
+  }
+  if (num > 99999) {
+    word += inWords(Math.floor(num / 100000)) + 'Lakh ';
+    num %= 100000;
+  }
+  if (num > 999) {
+    word += inWords(Math.floor(num / 1000)) + 'Thousand ';
+    num %= 1000;
+  }
+  word += inWords(num);
+
+  return word.trim();
+}
+
+export function amountToWords(amount: number): string {
+  const rupees = Math.floor(amount);
+  const paise = Math.round((amount - rupees) * 100);
+
+  let res = 'INR ' + numberToWords(rupees);
+  if (paise > 0) {
+    res += ' and ' + numberToWords(paise) + ' paise';
+  }
+  res += ' Only';
+  return res;
+}
